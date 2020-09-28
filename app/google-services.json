@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "353159220680",
+    "firebase_url": "https://frenzspots.firebaseio.com",
+    "project_id": "frenzspots",
+    "storage_bucket": "frenzspots.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353159220680:android:a75e10c05b7b133a1c44fd",
+        "android_client_info": {
+          "package_name": "com.davidelmn.application.frenzspots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353159220680-9tdqq1jetpmjn4og4hbh8e6u51cqmr4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJZpZAzKUPErT0O5ar9vXCJJRK5l0-e9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353159220680-9tdqq1jetpmjn4og4hbh8e6u51cqmr4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package application.davidelmn.rewardcardwallet
+package com.davidelmn.application.frenzspots
 
 import org.junit.Test
 
