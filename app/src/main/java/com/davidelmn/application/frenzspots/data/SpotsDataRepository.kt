@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class SpotListDataRepository(val context: Context?) {
+class SpotsDataRepository(val context: Context?) {
     private val bookmarkDataSourceLocal = SpotDataSourceLocal(context)
     private val bookmarkDataSourceRemote = SpotDataSourceRemote(context)
 
@@ -19,7 +19,7 @@ class SpotListDataRepository(val context: Context?) {
     }
 
     fun addSpot(spot: Spot) {
-//        bookmarkDataSourceLocal.insertSpot(spot)
+        bookmarkDataSourceRemote.addSpot(spot)
     }
 
     fun updateSpot(spot: Spot) {

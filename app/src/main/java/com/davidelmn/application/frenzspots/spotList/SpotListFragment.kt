@@ -1,4 +1,4 @@
-package com.davidelmn.application.frenzspots.spotlist
+package com.davidelmn.application.frenzspots.spotList
 
 import android.content.Context
 import android.os.Bundle
@@ -6,18 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidelmn.application.frenzspots.R
-import com.davidelmn.application.frenzspots.Spot
-import com.davidelmn.application.frenzspots.data.SpotListDataRepository
 import kotlinx.android.synthetic.main.spot_list_fragment.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -50,7 +43,7 @@ class SpotListFragment : Fragment() {
         }})
 
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_SpotListFragment_to_NewSpotFragment)
         }
     }
 }

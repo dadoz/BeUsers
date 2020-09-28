@@ -1,4 +1,4 @@
-package com.davidelmn.application.frenzspots.spotlist
+package com.davidelmn.application.frenzspots.spotList
 
 import android.view.LayoutInflater
 import android.view.View

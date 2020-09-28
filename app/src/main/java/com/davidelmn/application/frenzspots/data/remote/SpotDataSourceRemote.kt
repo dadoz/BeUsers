@@ -52,4 +52,14 @@ class SpotDataSourceRemote(var context: Context?) {
 //            dbRef.removeEventListener()
         }
     }
+
+    fun addSpot(spot: Spot) {
+        firebaseDatabase
+            .getReference("/").apply {
+                val id = this.push().key
+                id?.let {
+                    this.child(id).setValue(spot)
+                }
+            }
+    }
 }
