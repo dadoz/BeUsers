@@ -19,9 +19,8 @@ class SpotDataSourceRemote(var context: Context?) {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
     fun getSpotList(): Flow<MutableList<Spot>> = callbackFlow {
-        firebaseDatabase
-            .getReference("/")
-            .addValueEventListener(object : ValueEventListener {
+
+        val eventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val items = dataSnapshot
                     .getValue<HashMap<String, Any>>()
@@ -45,11 +44,15 @@ class SpotDataSourceRemote(var context: Context?) {
                     cause =  error.toException().cause
                 )
             }
-        })
+        }
+
+        firebaseDatabase
+            .getReference("/")
+            .addValueEventListener(eventListener)
 
         awaitClose {
             Timber.d("cancelling the listener on collection")
-//            dbRef.removeEventListener()
+            firebaseDatabase.getReference("/").removeEventListener(eventListener)
         }
     }
 
