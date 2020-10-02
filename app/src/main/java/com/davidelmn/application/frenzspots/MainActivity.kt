@@ -13,6 +13,7 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
             //use the query to search your data somehow
-            Log.e("TAG", query?: "")
+            Timber.e( query?: "")
         }
     }
 }

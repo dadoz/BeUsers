@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.Spot
 import com.davidelmn.application.frenzspots.spotList.SpotListViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.new_spot_fragment.*
 import kotlinx.android.synthetic.main.new_spot_fragment.view.*
 
@@ -41,9 +44,16 @@ class NewSpotFragment : Fragment() {
         fsNewSpotSaveButtonId.setOnClickListener {
             newSpotViewModel.addSpot(spot = createSpot())
         }
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_NewSpotFragment_to_SpotListFragment)
-//        }
+
+        newSpotViewModel.isSpotDataAddedSuccess.observe(viewLifecycleOwner, {
+            when (it) {
+                true -> {
+                    Snackbar.make(view, "success", Snackbar.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+                false -> Snackbar.make(view, "error", Snackbar.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun createSpot(): Spot {

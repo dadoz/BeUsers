@@ -2,6 +2,7 @@ package com.davidelmn.application.frenzspots.data.remote
 
 
 import android.content.Context
+import android.util.Log
 import com.davidelmn.application.frenzspots.Spot
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -56,13 +57,26 @@ class SpotDataSourceRemote(var context: Context?) {
         }
     }
 
-    fun addSpot(spot: Spot) {
+    fun addSpot(spot: Spot): Flow<Boolean> = callbackFlow {
         firebaseDatabase
-            .getReference("/").apply {
-                val id = this.push().key
-                id?.let {
-                    this.child(id).setValue(spot)
+            .getReference("/")
+            .let {
+                it.push().key?.let { id -> it.child(id).setValue(spot) }
+            }?.apply {
+                addOnSuccessListener {
+                    //coroutine proceed
+                    offer(true)
+                }
+
+                addOnCanceledListener {
+                    //coroutine cancel
+                    cancel( message = "failed to save data onf fb")
                 }
             }
-    }
+
+            awaitClose {
+                Timber.d("cancelling the listener on collection")
+            }
+        }
+
 }

@@ -1,14 +1,20 @@
 package com.davidelmn.application.frenzspots.newSpot
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.davidelmn.application.frenzspots.Spot
 import com.davidelmn.application.frenzspots.data.SpotsDataRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class NewSpotViewModel: ViewModel() {
-
     private val spotDataRepository = SpotsDataRepository(null)
+    var isSpotDataAddedSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun addSpot(spot: Spot) {
-        spotDataRepository.addSpot(spot)
+        viewModelScope.launch {
+            spotDataRepository.addSpot(spot).collect {
+                isSpotDataAddedSuccess.value = it
+            }
+        }
     }
 }

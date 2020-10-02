@@ -18,8 +18,8 @@ class SpotsDataRepository(val context: Context?) {
         return bookmarkDataSourceRemote.getSpotList()
     }
 
-    fun addSpot(spot: Spot) {
-        bookmarkDataSourceRemote.addSpot(spot)
+    fun addSpot(spot: Spot): Flow<Boolean> {
+        return bookmarkDataSourceRemote.addSpot(spot)
     }
 
     fun updateSpot(spot: Spot) {
