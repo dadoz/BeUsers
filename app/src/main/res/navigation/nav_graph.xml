@@ -3,8 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SpotListFragment">
+    app:startDestination="@id/LoginFragment">
 
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.davidelmn.application.frenzspots.login.LoginFrgment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/spot_list_fragment">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_SpotListFragment"
+            app:destination="@id/SpotListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/SpotListFragment"
         android:name="com.davidelmn.application.frenzspots.spotList.SpotListFragment"

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "353159220680-udc1jva8s0i7qtm8eq4m48nclc4p7orq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.davidelmn.application.frenzspots",
+            "certificate_hash": "3bdf0e40d282c704c5a512dae9e6d50642317670"
+          }
+        },
+        {
           "client_id": "353159220680-9tdqq1jetpmjn4og4hbh8e6u51cqmr4p.apps.googleusercontent.com",
           "client_type": 3
         }

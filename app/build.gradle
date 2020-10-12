@@ -18,6 +18,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', 'REQUEST_ID_TOKEN', '\"353159220680-9tdqq1jetpmjn4og4hbh8e6u51cqmr4p.apps.googleusercontent.com\"'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -53,9 +57,19 @@ dependencies {
     implementation 'com.google.auto.value:auto-value-annotations:1.6.5'
 
     implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
+// Also declare the dependency for the Google Play services library and specify its version
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    implementation "com.google.android.material:material:1.3.0-alpha03"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
