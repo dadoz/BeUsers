@@ -10,25 +10,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidelmn.application.frenzspots.R
-import kotlinx.android.synthetic.main.spot_list_fragment.*
+import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class SpotListFragment : Fragment() {
-    lateinit var spotViewModel: SpotListViewModel
+    private val spotViewModel by lazy {
+        ViewModelProvider(this).get(SpotListViewModel::class.java)
+    }
+
+    private lateinit var binding: SpotListFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.spot_list_fragment, container, false)
+        return SpotListFragmentBinding.inflate(layoutInflater, container, false).also { binding = it }.root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        spotViewModel = ViewModelProvider(this).get(SpotListViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,13 +39,13 @@ class SpotListFragment : Fragment() {
 
         spotViewModel.spotList.observe(viewLifecycleOwner, { spotList ->
             spotList?.let {
-            fsSpotRecyclerViewId.apply {
+                binding.fsSpotRecyclerViewId.apply {
                 adapter = SpotListAdapter(spotList)
                 layoutManager = LinearLayoutManager(context)
             }
         }})
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_SpotListFragment_to_NewSpotFragment)
         }
     }

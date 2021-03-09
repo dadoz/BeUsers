@@ -2,21 +2,16 @@ package com.davidelmn.application.frenzspots.newSpot
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.Spot
-import com.davidelmn.application.frenzspots.spotList.SpotListViewModel
+import com.davidelmn.application.frenzspots.databinding.NewSpotFragmentBinding
+import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.new_spot_fragment.*
-import kotlinx.android.synthetic.main.new_spot_fragment.view.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -24,13 +19,14 @@ import kotlinx.android.synthetic.main.new_spot_fragment.view.*
 class NewSpotFragment : Fragment() {
 
     private lateinit var newSpotViewModel: NewSpotViewModel
+    private lateinit var binding: NewSpotFragmentBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.new_spot_fragment, container, false)
+        return NewSpotFragmentBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     override fun onAttach(context: Context) {
@@ -41,7 +37,7 @@ class NewSpotFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fsNewSpotSaveButtonId.setOnClickListener {
+        binding.fsNewSpotSaveButtonId.setOnClickListener {
             newSpotViewModel.addSpot(spot = createSpot())
         }
 
@@ -57,11 +53,12 @@ class NewSpotFragment : Fragment() {
     }
 
     private fun createSpot(): Spot {
-        val title = fsNewSpotTitleEditTextId.text.toString()
-        val address = fsNewSpotAddressEditTextId.text.toString()
-        val city = fsNewSpotCityEditTextId.text.toString()
-
-        return Spot(title, address, "temporary_empty", city)
+        return binding.let {
+            val title = it.fsNewSpotTitleEditTextId.text.toString()
+            val address = it.fsNewSpotAddressEditTextId.text.toString()
+            val city = it.fsNewSpotCityEditTextId.text.toString()
+            Spot(title, address, "temporary_empty", city)
+        }
     }
 
 }
