@@ -1,6 +1,5 @@
 package com.davidelmn.application.frenzspots.newSpot
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.davidelmn.application.frenzspots.Spot
 import com.davidelmn.application.frenzspots.databinding.NewSpotFragmentBinding
-import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -18,21 +16,21 @@ import com.google.android.material.snackbar.Snackbar
  */
 class NewSpotFragment : Fragment() {
 
-    private lateinit var newSpotViewModel: NewSpotViewModel
+    private val newSpotViewModel: NewSpotViewModel by lazy {
+        ViewModelProvider(this).get(NewSpotViewModel::class.java)
+    }
     private lateinit var binding: NewSpotFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        return NewSpotFragmentBinding.inflate(inflater, container, false).also { binding = it }.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        newSpotViewModel = ViewModelProvider(this).get(NewSpotViewModel::class.java)
-    }
+    ): View = NewSpotFragmentBinding.inflate(inflater, container, false)
+        .apply {
+            binding = this
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = newSpotViewModel
+        }
+        .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
