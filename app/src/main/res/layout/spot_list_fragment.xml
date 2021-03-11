@@ -79,12 +79,12 @@
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.libraries.maps.MapView
-                android:id="@+id/map"
+            <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+                android:id="@+id/map"
+                tools:context=".MapsActivity"
+                android:name="com.google.android.gms.maps.SupportMapFragment" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
