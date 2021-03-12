@@ -17,11 +17,20 @@
         android:layout_height="match_parent"
         tools:context=".spotList.SpotListFragment">
 
+        <!--below -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentMapContainerViewId"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:tag="mapFragmentTag"
+            tools:context=".MapsActivity" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,12 +42,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fsPersonalAddressCardId"
+                style="@style/MaterialCardviewRed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="1dp">
+                android:layout_marginEnd="16dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -50,8 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/common_google_signin_btn_icon_dark" />
+                        android:layout_centerVertical="true" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -63,43 +70,37 @@
                             android:id="@+id/fsSpotTitleTextId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-condensed-light"
                             android:text="Corso Racconigi 136"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="24sp" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="28sp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/fsSpotAddressTextId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="sans-serif-thin"
+                            android:textColor="@color/colorPrimary"
                             android:text="Uploaded on Oct 12" />
 
                     </LinearLayout>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/map"
-                tools:context=".MapsActivity"
-                android:name="com.google.android.gms.maps.SupportMapFragment" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bottom_sheet"
+            style="@style/MaterialCardviewBlue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:behavior_peekHeight="80dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1dp">
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fsSpotRecyclerViewId"
-                android:layout_width="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimaryBackground</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -15,5 +16,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MaterialCardviewRed" parent="Widget.MaterialComponents.CardView" >
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/colorAccent</item>
+        <item name="strokeColor">@color/colorAccentDark</item>
+    </style>
+
+    <style name="MaterialCardviewBlue" parent="Widget.MaterialComponents.CardView" >
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/colorPrimary</item>
+        <item name="strokeColor">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>
