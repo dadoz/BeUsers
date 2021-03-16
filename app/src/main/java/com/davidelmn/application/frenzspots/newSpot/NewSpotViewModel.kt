@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 class NewSpotViewModel: ViewModel() {
     private val spotDataRepository = SpotsDataRepository(null)
     var isSpotDataAddedSuccess: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isMapLoaded = MutableLiveData<Boolean>()
 
     fun addSpot(spot: Spot) {
         viewModelScope.launch {

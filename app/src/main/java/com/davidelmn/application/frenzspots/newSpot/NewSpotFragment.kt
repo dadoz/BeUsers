@@ -1,14 +1,15 @@
 package com.davidelmn.application.frenzspots.newSpot
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.davidelmn.application.frenzspots.MapsManager
+import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.Spot
 import com.davidelmn.application.frenzspots.databinding.NewSpotFragmentBinding
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -29,8 +30,14 @@ class NewSpotFragment : Fragment() {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             viewModel = newSpotViewModel
+            setHasOptionsMenu(true)
         }
         .root
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_spot_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,6 +55,18 @@ class NewSpotFragment : Fragment() {
                 false -> Snackbar.make(view, "error", Snackbar.LENGTH_SHORT).show()
             }
         })
+
+        context?.let {
+            MapsManager.apply {
+                initWithContext(it) {
+                    isMapInitialized -> newSpotViewModel.isMapLoaded.value = isMapInitialized
+                }
+                childFragmentManager.findFragmentByTag("mapFragmentTag")?.let {
+                    (it as SupportMapFragment).getMapAsync(this)
+                }
+            }
+        }
+
     }
 
     private fun createSpot(): Spot {

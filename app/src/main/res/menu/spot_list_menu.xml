@@ -9,7 +9,7 @@
         app:showAsAction="never" />
     <item android:id="@+id/search"
         android:title="search"
-        android:icon="@drawable/abc_vector_test"
+        android:icon="@drawable/ic_sarch_icon"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
 </menu>

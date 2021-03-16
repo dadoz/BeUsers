@@ -4,11 +4,10 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -33,24 +32,31 @@ class MainActivity : AppCompatActivity() {
         handleIntent(intent)
         auth = Firebase.auth
 
-        googleSignInClient = GoogleSignIn.getClient(this,
+        googleSignInClient = GoogleSignIn.getClient(
+            this,
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(BuildConfig.REQUEST_ID_TOKEN)
                 .requestEmail()
-                .build())
+                .build()
+        )
+    }
+
+    fun showSupportActionBar(isVisible: Boolean) {
+        when (isVisible) {
+            true -> supportActionBar?.show()
+            false -> supportActionBar?.hide()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        auth.currentUser?.let {
-            val user = it
+        auth.currentUser?.let { user ->
             Timber.e(user.toString())
         } ?: logUser()
     }
 
     private fun logUser() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
     }
 
     private fun logUser(email: String, password: String) {
@@ -62,8 +68,10 @@ class MainActivity : AppCompatActivity() {
                         Timber.e(user.toString())
                     }
                     else -> {
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -84,7 +92,11 @@ class MainActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Timber.e("Google sign in failed $e")
-                Snackbar.make(findViewById(R.id.nav_host_fragment), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    findViewById(R.id.nav_host_fragment),
+                    "Authentication Failed.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -95,39 +107,21 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Timber.e( "signInWithCredential:success")
+                    Timber.e("signInWithCredential:success")
                     val user = auth.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
-                    Timber.e( "signInWithCredential:failure ${task.exception}")
-                    Snackbar.make(findViewById(R.id.nav_host_fragment), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    Timber.e("signInWithCredential:failure ${task.exception}")
+                    Snackbar.make(
+                        findViewById(R.id.nav_host_fragment),
+                        "Authentication Failed.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
             }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-
-        // Associate searchable configuration with the SearchView
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.search).actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        }
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -138,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
             //use the query to search your data somehow
-            Timber.e( query?: "")
+            Timber.e(query ?: "")
         }
     }
 }

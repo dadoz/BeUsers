@@ -1,27 +1,24 @@
 package com.davidelmn.application.frenzspots.spotList
 
-import android.content.res.Resources
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.davidelmn.application.frenzspots.MapsManager
 import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import timber.log.Timber
+import com.google.android.gms.maps.SupportMapFragment
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class SpotListFragment : Fragment(), OnMapReadyCallback {
+class SpotListFragment : Fragment() {
     private val spotViewModel by lazy {
         ViewModelProvider(this).get(SpotListViewModel::class.java)
     }
@@ -36,8 +33,34 @@ class SpotListFragment : Fragment(), OnMapReadyCallback {
             binding = this
             lifecycleOwner = viewLifecycleOwner
             viewModel = spotViewModel
+            setHasOptionsMenu(true)
         }
         .root
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.spot_list_menu, menu)
+
+        // Associate searchable configuration with the SearchView
+        activity?.getSystemService(Context.SEARCH_SERVICE)?.let { searchManager ->
+            menu.findItem(R.id.search)?.actionView?.let {
+                (it as SearchView).apply {
+                    setSearchableInfo((searchManager as SearchManager).getSearchableInfo(activity?.componentName))
+                }
+            }
+        }
+        return
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,40 +69,24 @@ class SpotListFragment : Fragment(), OnMapReadyCallback {
             spotList?.let {
                 binding.fsSpotRecyclerViewId.apply {
                     adapter = SpotListAdapter(spotList)
-                    layoutManager = LinearLayoutManager(context)
                 }
             }
         })
 
-        (childFragmentManager.findFragmentByTag("mapFragmentTag") as SupportMapFragment).getMapAsync(
-            this
-        )
+        context?.let {
+            MapsManager.apply {
+                initWithContext(it) {
+                    spotViewModel.isMapLoaded.value = it
+                }
+                childFragmentManager.findFragmentByTag("mapFragmentTag")?.let {
+                    (it as SupportMapFragment).getMapAsync(this)
+                }
+            }
+        }
+
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_SpotListFragment_to_NewSpotFragment)
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-        try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
-            val success =
-                googleMap?.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                        context,
-                        R.raw.style_json
-                    )
-                )
-            if (success == false) {
-                Timber.e(SpotListFragment::class.simpleName, "Style parsing failed.")
-            }
-        } catch (e: Resources.NotFoundException) {
-            Timber.e(SpotListFragment::class.simpleName, "Can't find style. Error: $e")
-        }
-
-        val cameraPosition = CameraPosition.Builder()
-            .target(LatLng(45.0703, 7.6869)).zoom(15f).build()
-        googleMap?.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition))
-    }
 }
