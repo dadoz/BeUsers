@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.davidelmn.application.frenzspots.newSpot.NewSpotViewModel" />
+            type="com.davidelmn.application.frenzspots.features.newSpot.NewSpotViewModel" />
     </data>
 
     <FrameLayout
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context=".newSpot.NewSpotFragment">
+                tools:context=".features.newSpot.NewSpotFragment">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

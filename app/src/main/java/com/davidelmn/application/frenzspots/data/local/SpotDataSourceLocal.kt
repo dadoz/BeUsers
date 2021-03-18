@@ -2,7 +2,7 @@ package com.davidelmn.application.frenzspots.data.local
 
 
 import android.content.Context
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow

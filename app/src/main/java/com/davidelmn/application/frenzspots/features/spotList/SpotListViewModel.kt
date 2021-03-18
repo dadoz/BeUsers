@@ -1,10 +1,10 @@
-package com.davidelmn.application.frenzspots.spotList
+package com.davidelmn.application.frenzspots.features.spotList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.SpotsDataRepository
 
 class SpotListViewModel: ViewModel() {

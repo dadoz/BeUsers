@@ -9,13 +9,13 @@
 
         <variable
             name="viewModel"
-            type="com.davidelmn.application.frenzspots.spotList.SpotListViewModel" />
+            type="com.davidelmn.application.frenzspots.features.spotList.SpotListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".spotList.SpotListFragment">
+        tools:context=".features.spotList.SpotListFragment">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentMapContainerViewId"

@@ -1,8 +1,9 @@
-package com.davidelmn.application.frenzspots
+package com.davidelmn.application.frenzspots.managers
 
 import android.content.Context
 import android.content.res.Resources
-import com.davidelmn.application.frenzspots.spotList.SpotListFragment
+import com.davidelmn.application.frenzspots.R
+import com.davidelmn.application.frenzspots.features.spotList.SpotListFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -11,7 +12,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import java.util.logging.Handler
 
 object MapsManager: OnMapReadyCallback {
     private lateinit var callback: (isMapInitialized: Boolean) -> Unit
@@ -19,7 +19,7 @@ object MapsManager: OnMapReadyCallback {
 
     fun initWithContext(context: Context, onMapInitializedCallback: (isMapInitialized: Boolean) -> Unit) {
          contextWeak = WeakReference(context)
-        this.callback = onMapInitializedCallback
+        callback = onMapInitializedCallback
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {

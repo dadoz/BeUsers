@@ -1,4 +1,4 @@
-package com.davidelmn.application.frenzspots.spotList
+package com.davidelmn.application.frenzspots.features.spotList
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.davidelmn.application.frenzspots.R
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 
 class SpotListAdapter(private val items: List<Spot>) : RecyclerView.Adapter<SpotViewHolder>() {
 

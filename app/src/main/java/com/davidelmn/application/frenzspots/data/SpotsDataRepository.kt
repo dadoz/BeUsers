@@ -1,13 +1,10 @@
 package com.davidelmn.application.frenzspots.data
 
 import android.content.Context
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.local.SpotDataSourceLocal
 import com.davidelmn.application.frenzspots.data.remote.SpotDataSourceRemote
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 class SpotsDataRepository(val context: Context?) {
     private val bookmarkDataSourceLocal = SpotDataSourceLocal(context)

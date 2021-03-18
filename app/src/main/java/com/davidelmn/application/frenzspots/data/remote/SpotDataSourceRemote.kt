@@ -2,8 +2,7 @@ package com.davidelmn.application.frenzspots.data.remote
 
 
 import android.content.Context
-import android.util.Log
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

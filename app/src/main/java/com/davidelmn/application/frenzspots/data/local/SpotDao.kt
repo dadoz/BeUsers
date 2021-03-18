@@ -1,6 +1,6 @@
 package com.davidelmn.application.frenzspots.data.local
 
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 
 
 //@Dao

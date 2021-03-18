@@ -1,15 +1,14 @@
-package com.davidelmn.application.frenzspots.spotList
+package com.davidelmn.application.frenzspots.features.spotList
 
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.davidelmn.application.frenzspots.MapsManager
+import com.davidelmn.application.frenzspots.managers.MapsManager
 import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
 import com.google.android.gms.maps.SupportMapFragment

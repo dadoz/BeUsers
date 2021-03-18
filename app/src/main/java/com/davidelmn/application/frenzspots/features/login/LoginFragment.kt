@@ -1,4 +1,4 @@
-package com.davidelmn.application.frenzspots.login
+package com.davidelmn.application.frenzspots.features.login
 
 import android.content.Context
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.davidelmn.application.frenzspots.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import timber.log.Timber
 
-class LoginFrgment: Fragment() {
+class LoginFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

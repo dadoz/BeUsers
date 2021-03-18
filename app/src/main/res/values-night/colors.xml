@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#202129</color>
     <color name="colorPrimaryDark">#1C1D23</color>
-    <color name="colorAccent">#CF263B</color>
-    <color name="colorAccentDark">#AE2132</color>
+    <color name="colorAccent">#00CFC8</color>
+    <color name="colorAccentDark">#0CAEA3</color>
     <color name="colorPrimaryBackground">#202129</color>
     <color name="colorLight">#EAECFF</color>
 </resources>

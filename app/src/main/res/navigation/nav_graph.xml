@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.davidelmn.application.frenzspots.login.LoginFrgment"
+        android:name="com.davidelmn.application.frenzspots.features.login.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/spot_list_fragment">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SpotListFragment"
-        android:name="com.davidelmn.application.frenzspots.spotList.SpotListFragment"
+        android:name="com.davidelmn.application.frenzspots.features.spotList.SpotListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/spot_list_fragment">
 
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/NewSpotFragment"
-        android:name="com.davidelmn.application.frenzspots.newSpot.NewSpotFragment"
+        android:name="com.davidelmn.application.frenzspots.features.newSpot.NewSpotFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/new_spot_fragment">
 

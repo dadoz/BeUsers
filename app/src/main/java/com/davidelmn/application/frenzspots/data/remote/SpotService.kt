@@ -1,6 +1,6 @@
 package com.davidelmn.application.frenzspots.data.remote
 
-import com.davidelmn.application.frenzspots.Spot
+import com.davidelmn.application.frenzspots.models.Spot
 import kotlinx.coroutines.flow.Flow
 
 
