@@ -12,32 +12,72 @@
             type="com.davidelmn.application.frenzspots.features.spotList.SpotListViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.spotList.SpotListFragment">
+        android:orientation="vertical">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentMapContainerViewId"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <!-- maps and bottomSheet layout -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/titleContainerId"
             android:layout_marginTop="@dimen/margin_map_spotlist"
-            android:tag="mapFragmentTag"
-            tools:context=".MapsActivity" />
+            tools:context=".features.spotList.SpotListFragment">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentMapContainerViewId"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="mapFragmentTag"
+                tools:context=".MapsActivity" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bottom_sheet"
+                style="@style/MaterialCardviewBlue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:behavior_peekHeight="180dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fsSpotRecyclerViewId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorPrimary"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:contentDescription="TODO"
+                app:backgroundTint="@color/colorAccent"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <!--main title card layout -->
         <LinearLayout
+            android:id="@+id/titleContainerId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_32"
-                android:layout_marginBottom="@dimen/margin_32"
                 android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
                 android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_32"
                 android:fontFamily="sans-serif-thin"
                 android:text="Davide"
                 android:textColor="@color/colorAccent"
@@ -90,35 +130,5 @@
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bottom_sheet"
-            style="@style/MaterialCardviewBlue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:behavior_peekHeight="180dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fsSpotRecyclerViewId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:background="@color/colorPrimary"
-                android:nestedScrollingEnabled="false" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:backgroundTint="@color/colorAccent"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            android:contentDescription="TODO" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 </layout>
