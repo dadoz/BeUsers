@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
-
+// Apply the App Distribution Gradle plugin
+apply plugin: 'com.google.firebase.appdistribution'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -24,6 +25,11 @@ android {
     buildTypes {
         debug {
             buildConfigField 'String', 'REQUEST_ID_TOKEN', '\"353159220680-9tdqq1jetpmjn4og4hbh8e6u51cqmr4p.apps.googleusercontent.com\"'
+            firebaseAppDistribution {
+                releaseNotes="this is commit"
+                testers="davide.lamanna.appsquad@gmail.com"
+                serviceCredentialsFile="frenzspots-firebase-adminsdk-sb2yl-0656d11144.json"
+            }
         }
 
         release {
@@ -31,6 +37,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+//    task buildAndDistribute {
+//        println "assemble and upload debug"
+//        app.assembleDebug
+//        app.appDistributionUploadDebug
+//    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -47,8 +60,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -60,7 +73,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.auto.value:auto-value-annotations:1.6.5'
 
-    implementation 'com.google.firebase:firebase-database-ktx:19.6.0'
+    implementation 'com.google.firebase:firebase-database-ktx:19.7.0'
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
 
@@ -76,6 +89,10 @@ dependencies {
     implementation "com.google.android.material:material:1.4.0-alpha01"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.android.support:support-annotations:28.0.0'
+
+    // Apply the App Distribution Gradle plugin
+    apply plugin: 'com.google.firebase.appdistribution'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
