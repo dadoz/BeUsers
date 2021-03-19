@@ -8,10 +8,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.davidelmn.application.frenzspots.managers.MapsManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
+import com.davidelmn.application.frenzspots.managers.MapsManager
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import com.google.android.material.card.MaterialCardView
+import timber.log.Timber
 
 
 /**
@@ -23,6 +29,7 @@ class SpotListFragment : Fragment() {
     }
 
     private lateinit var binding: SpotListFragmentBinding
+    private lateinit var bottomSheet: BottomSheetBehavior<MaterialCardView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,10 +75,38 @@ class SpotListFragment : Fragment() {
             spotList?.let {
                 binding.fsSpotRecyclerViewId.apply {
                     adapter = SpotListAdapter(spotList)
+                    isNestedScrollingEnabled = false
+                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                                .takeIf {
+                                    (layoutManager?.itemCount ?: 0 - recyclerView.childCount) > it && it == 0 && dy < 0
+                                }?.let {
+                                    bottomSheet.state = STATE_COLLAPSED
+                                } ?: kotlin.run {
+                                    if (bottomSheet.state != STATE_COLLAPSED)
+                                        bottomSheet.state = STATE_EXPANDED
+                                }
+                        }
+                    })
                 }
             }
         })
 
+        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet).apply {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    state = when (newState) {
+                        STATE_DRAGGING -> STATE_EXPANDED
+                        else -> newState
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                }
+
+            })
+        }
         context?.let {
             MapsManager.apply {
                 initWithContext(it) {
