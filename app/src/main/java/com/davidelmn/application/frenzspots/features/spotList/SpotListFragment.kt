@@ -5,11 +5,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.davidelmn.application.frenzspots.R
 import com.davidelmn.application.frenzspots.databinding.SpotListFragmentBinding
 import com.davidelmn.application.frenzspots.managers.MapsManager
@@ -17,7 +20,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView
-import timber.log.Timber
 
 
 /**
@@ -73,22 +75,33 @@ class SpotListFragment : Fragment() {
 
         spotViewModel.spotList.observe(viewLifecycleOwner, { spotList ->
             spotList?.let {
-                binding.fsSpotRecyclerViewId.apply {
-                    adapter = SpotListAdapter(spotList)
-                    isNestedScrollingEnabled = false
-                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                                .takeIf {
-                                    (layoutManager?.itemCount ?: 0 - recyclerView.childCount) > it && it == 0 && dy < 0
-                                }?.let {
-                                    bottomSheet.state = STATE_COLLAPSED
-                                } ?: kotlin.run {
+                binding.let {
+                    it.fsSpotRecyclerViewId.apply {
+                        adapter = SpotListAdapter(spotList)
+                        isNestedScrollingEnabled = false
+                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                                (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                                    .takeIf {
+                                        (layoutManager?.itemCount
+                                            ?: 0 - recyclerView.childCount) > it && it == 0 && dy < 0
+                                    }?.let {
+                                        bottomSheet.state = STATE_COLLAPSED
+                                    } ?: kotlin.run {
                                     if (bottomSheet.state != STATE_COLLAPSED)
                                         bottomSheet.state = STATE_EXPANDED
                                 }
-                        }
-                    })
+                            }
+                        })
+                    }
+
+                    val hiddenView = it.hiddenExpandedLayoutId
+                    val mainView = it.mainExpandedLayoutId
+                    it.fsPersonalAddressCardId.setOnClickListener {
+                        TransitionManager.beginDelayedTransition(it as CardView, AutoTransition())
+                        mainView.visibility = if (mainView.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                        hiddenView.visibility = if (hiddenView.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                    }
                 }
             }
         })

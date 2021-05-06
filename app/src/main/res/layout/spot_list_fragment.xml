@@ -91,43 +91,106 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                    android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/fsSpotIconId"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/mainExpandedLayoutId"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_margin="16dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/fsSpotIconId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/fsSpotTitleTextId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-condensed-light"
+                                android:text="Corso Racconigi 136"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="28sp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/fsSpotAddressTextId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Uploaded on Oct 12"
+                                android:textColor="@color/colorPrimary" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/hiddenExpandedLayoutId"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_16"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/fsSpotTitleTextId"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-condensed-light"
-                            android:text="Corso Racconigi 136"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="28sp" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/fsSpotAddressTextId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_16"
                             android:fontFamily="sans-serif-thin"
-                            android:text="Uploaded on Oct 12"
-                            android:textColor="@color/colorPrimary" />
+                            android:text="Your Home address"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="22sp" />
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="nllllllllllllllll" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="100sp"
+                                android:layout_height="wrap_content"
+                                android:hint="nllllllllllllllll" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:hint="nllllllllllllllll" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
-                </RelativeLayout>
+                </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </RelativeLayout>
