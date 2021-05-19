@@ -28,8 +28,8 @@
             style="@style/MaterialCardviewBlue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/margin_16"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:paddingBottom="@dimen/margin_16">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,22 +41,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="16dp"
-                    android:src="@drawable/vihara" />
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fsNewSpotSaveButtonId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_alignParentEnd="true"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="SAVE" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/vihara" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -116,6 +106,18 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/fsNewSpotSaveButtonId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/colorAccent"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    android:text="SAVE" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>

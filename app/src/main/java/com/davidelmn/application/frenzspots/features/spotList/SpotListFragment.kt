@@ -20,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 /**
@@ -69,6 +70,7 @@ class SpotListFragment : Fragment() {
         }
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -105,7 +107,7 @@ class SpotListFragment : Fragment() {
             }
         })
 
-        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet).apply {
+        bottomSheet = from(binding.bottomSheet).apply {
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     state = when (newState) {
@@ -119,6 +121,11 @@ class SpotListFragment : Fragment() {
 
             })
         }
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_SpotListFragment_to_NewSpotFragment)
+        }
+
         context?.let {
             MapsManager.apply {
                 initWithContext(it) {
@@ -130,9 +137,6 @@ class SpotListFragment : Fragment() {
             }
         }
 
-        binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_SpotListFragment_to_NewSpotFragment)
-        }
     }
 
 }

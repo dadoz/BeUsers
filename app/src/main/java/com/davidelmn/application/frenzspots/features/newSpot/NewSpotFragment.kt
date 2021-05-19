@@ -16,11 +16,10 @@ import com.google.android.material.snackbar.Snackbar
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class NewSpotFragment : Fragment() {
-
-    private val newSpotViewModel: NewSpotViewModel by lazy {
-        ViewModelProvider(this).get(NewSpotViewModel::class.java)
-    }
     private lateinit var binding: NewSpotFragmentBinding
+    private val newSpotViewModel: NewSpotViewModel by lazy {
+        ViewModelProvider(this)[NewSpotViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,13 +45,18 @@ class NewSpotFragment : Fragment() {
             newSpotViewModel.addSpot(spot = createSpot())
         }
 
+        newSpotViewModel.isSpotDataAddedError.observe(viewLifecycleOwner, {
+            it?.let {
+                Snackbar.make(view, it.message?: "error", Snackbar.LENGTH_SHORT).show()
+            }
+        })
+
         newSpotViewModel.isSpotDataAddedSuccess.observe(viewLifecycleOwner, {
             when (it) {
                 true -> {
                     Snackbar.make(view, "success", Snackbar.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 }
-                false -> Snackbar.make(view, "error", Snackbar.LENGTH_SHORT).show()
             }
         })
 
@@ -69,6 +73,7 @@ class NewSpotFragment : Fragment() {
 
     }
 
+    // todo modify to be handled by databinding :O
     private fun createSpot(): Spot {
         return binding.let {
             val title = it.fsNewSpotTitleEditTextId.text.toString()
