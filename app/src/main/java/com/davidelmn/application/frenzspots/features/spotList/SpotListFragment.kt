@@ -26,12 +26,11 @@ import com.google.android.material.card.MaterialCardView
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class SpotListFragment : Fragment() {
+    private lateinit var binding: SpotListFragmentBinding
+    private lateinit var bottomSheet: BottomSheetBehavior<MaterialCardView>
     private val spotViewModel by lazy {
         ViewModelProvider(this).get(SpotListViewModel::class.java)
     }
-
-    private lateinit var binding: SpotListFragmentBinding
-    private lateinit var bottomSheet: BottomSheetBehavior<MaterialCardView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

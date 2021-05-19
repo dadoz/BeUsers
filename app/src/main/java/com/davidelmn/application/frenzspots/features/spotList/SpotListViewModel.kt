@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.SpotsDataRepository
+import com.davidelmn.application.frenzspots.models.Spot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class SpotListViewModel: ViewModel() {

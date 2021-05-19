@@ -1,9 +1,9 @@
 package com.davidelmn.application.frenzspots.data
 
 import android.content.Context
-import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.local.SpotDataSourceLocal
 import com.davidelmn.application.frenzspots.data.remote.SpotDataSourceRemote
+import com.davidelmn.application.frenzspots.models.Spot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 

@@ -1,8 +1,10 @@
 package com.davidelmn.application.frenzspots.features.newSpot
 
-import androidx.lifecycle.*
-import com.davidelmn.application.frenzspots.models.Spot
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.davidelmn.application.frenzspots.data.SpotsDataRepository
+import com.davidelmn.application.frenzspots.models.Spot
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

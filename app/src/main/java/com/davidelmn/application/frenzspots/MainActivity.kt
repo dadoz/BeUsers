@@ -1,14 +1,10 @@
 package com.davidelmn.application.frenzspots
 
 import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,17 +18,11 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 999
-    private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
-        handleIntent(intent)
-        auth = Firebase.auth
-
-        googleSignInClient = GoogleSignIn.getClient(
+    private val auth: FirebaseAuth by lazy {
+        Firebase.auth
+    }
+    private val googleSignInClient: GoogleSignInClient by lazy {
+        GoogleSignIn.getClient(
             this,
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(BuildConfig.REQUEST_ID_TOKEN)
@@ -41,11 +31,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun showSupportActionBar(isVisible: Boolean) {
-        when (isVisible) {
-            true -> supportActionBar?.show()
-            false -> supportActionBar?.hide()
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        handleIntent(intent)
     }
 
     override fun onStart() {
@@ -78,29 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)
-                Timber.e("firebaseAuthWithGoogle ${account?.id}")
-                account?.idToken?.let { firebaseAuthWithGoogle(it) }
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Timber.e("Google sign in failed $e")
-                Snackbar.make(
-                    findViewById(R.id.nav_host_fragment),
-                    "Authentication Failed.",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -122,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
@@ -133,6 +99,29 @@ class MainActivity : AppCompatActivity() {
             val query = intent.getStringExtra(SearchManager.QUERY)
             //use the query to search your data somehow
             Timber.e(query ?: "")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            try {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)
+                Timber.e("firebaseAuthWithGoogle ${account?.id}")
+                account?.idToken?.let { firebaseAuthWithGoogle(it) }
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Timber.e("Google sign in failed $e")
+                Snackbar.make(
+                    findViewById(R.id.nav_host_fragment),
+                    "Authentication Failed.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

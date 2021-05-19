@@ -5,10 +5,10 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.davidelmn.application.frenzspots.managers.MapsManager
 import com.davidelmn.application.frenzspots.R
-import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.databinding.NewSpotFragmentBinding
+import com.davidelmn.application.frenzspots.managers.MapsManager
+import com.davidelmn.application.frenzspots.models.Spot
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.snackbar.Snackbar
 
