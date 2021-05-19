@@ -4,13 +4,15 @@ import android.content.Context
 import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.local.SpotDataSourceLocal
 import com.davidelmn.application.frenzspots.data.remote.SpotDataSourceRemote
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 class SpotsDataRepository(val context: Context?) {
     private val bookmarkDataSourceLocal = SpotDataSourceLocal(context)
     private val bookmarkDataSourceRemote = SpotDataSourceRemote(context)
 
-    fun getSpots(): Flow<MutableList<Spot>> {
+    @ExperimentalCoroutinesApi
+    fun getSpots(): Flow<List<Spot>?> {
 //        if (local != 0) else remote
         return bookmarkDataSourceRemote.getSpotList()
     }

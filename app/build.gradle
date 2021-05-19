@@ -18,8 +18,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures {
-        dataBinding true
+    dataBinding {
+        enabled true
     }
 
     ndkVersion '22.0.7026061'

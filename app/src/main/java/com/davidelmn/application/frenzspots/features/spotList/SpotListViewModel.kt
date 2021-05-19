@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.davidelmn.application.frenzspots.models.Spot
 import com.davidelmn.application.frenzspots.data.SpotsDataRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class SpotListViewModel: ViewModel() {
     private val spotListDataRepository = SpotsDataRepository(null)
     val isMapLoaded = MutableLiveData(false)
 
-    val spotList: LiveData<MutableList<Spot>> = spotListDataRepository.getSpots().asLiveData()
+    @ExperimentalCoroutinesApi
+    val spotList: LiveData<List<Spot>?> = spotListDataRepository.getSpots().asLiveData()
 
 }

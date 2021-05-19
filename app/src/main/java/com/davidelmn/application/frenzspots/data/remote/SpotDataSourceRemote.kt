@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import com.google.gson.Gson
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,8 @@ import timber.log.Timber
 class SpotDataSourceRemote(var context: Context?) {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
-    fun getSpotList(): Flow<MutableList<Spot>> = callbackFlow {
+    @ExperimentalCoroutinesApi
+    fun getSpotList(): Flow<List<Spot>?> = callbackFlow {
 
         val eventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
