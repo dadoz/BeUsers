@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
 // Apply the App Distribution Gradle plugin
     id("com.google.firebase.appdistribution")
+    id("com.google.gms.google-services")
 //apply from: "versions.gradle"
 }
 
@@ -85,8 +84,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:25.12.0"))
 
     // Declare the dependency for the Firebase Authentication library
+    implementation("com.google.firebase:firebase-core:19.0.0")
     // When using the BoM, you don"t specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx:21.0.1")
 // Also declare the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:19.0.0")
 
