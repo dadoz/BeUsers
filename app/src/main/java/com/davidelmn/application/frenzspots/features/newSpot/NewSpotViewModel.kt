@@ -21,4 +21,8 @@ class NewSpotViewModel: ViewModel() {
             }
         }
     }
+
+    fun findOnMap(spot: String) {
+        
+    }
 }

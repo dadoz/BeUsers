@@ -41,45 +41,52 @@ class NewSpotFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fsNewSpotSaveButtonId.setOnClickListener {
-            newSpotViewModel.addSpot(spot = createSpot())
+        binding.apply {
+            fsNewSpotSaveButtonId.setOnClickListener {
+                newSpotViewModel.addSpot(spot = createSpot())
+            }
+            fsNewSpotFindOnMapButtonId.setOnClickListener {
+                newSpotViewModel.findOnMap(spot = fsNewSpotAddressEditTextId.text.toString())
+            }
         }
 
-        newSpotViewModel.isSpotDataAddedError.observe(viewLifecycleOwner, {
-            it?.let {
-                Snackbar.make(view, it.message?: "error", Snackbar.LENGTH_SHORT).show()
-            }
-        })
-
-        newSpotViewModel.isSpotDataAddedSuccess.observe(viewLifecycleOwner, {
-            when (it) {
-                true -> {
-                    Snackbar.make(view, "success", Snackbar.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
+        newSpotViewModel.isSpotDataAddedError.observe(viewLifecycleOwner,
+            {
+                it?.let {
+                    Snackbar.make(view, it.message ?: "error", Snackbar.LENGTH_SHORT).show()
                 }
-            }
-        })
+            })
+
+        newSpotViewModel.isSpotDataAddedSuccess.observe(viewLifecycleOwner,
+            {
+                when (it) {
+                    true -> {
+                        Snackbar.make(view, "success", Snackbar.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                }
+            })
 
         context?.let {
             MapsManager.apply {
-                initWithContext(it) {
-                    isMapInitialized -> newSpotViewModel.isMapLoaded.value = isMapInitialized
+                initWithContext(it) { isMapInitialized ->
+                    newSpotViewModel.isMapLoaded.value = isMapInitialized
                 }
                 childFragmentManager.findFragmentByTag("mapFragmentTag")?.let {
                     (it as SupportMapFragment).getMapAsync(this)
                 }
             }
         }
-
     }
+
 
     // todo modify to be handled by databinding :O
     private fun createSpot(): Spot {
         return binding.let {
             val title = it.fsNewSpotTitleEditTextId.text.toString()
             val address = it.fsNewSpotAddressEditTextId.text.toString()
-            val city = it.fsNewSpotCityEditTextId.text.toString()
-            Spot(title, address, "temporary_empty", city)
+            val city = "Empty"
+            Spot(title, address, "temporary_empty", city, 0.0, 0.0)
         }
     }
 

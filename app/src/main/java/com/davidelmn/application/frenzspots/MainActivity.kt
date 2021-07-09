@@ -4,7 +4,9 @@ import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,6 +17,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import timber.log.Timber
+
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 999
@@ -36,6 +39,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
         handleIntent(intent)
+
+        // This callback will only be called when MyFragment is at least Started.
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    // Handle the back button event
+                    if (!Navigation.findNavController(window.decorView).popBackStack()) {
+                        // Call finish() on your Activity
+                        finish()
+                    }
+                }
+            }
+        )
     }
 
     override fun onStart() {
@@ -75,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Timber.e("signInWithCredential:success")
-                    val user = auth.currentUser
+                    //auth.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
                     Timber.e("signInWithCredential:failure ${task.exception}")

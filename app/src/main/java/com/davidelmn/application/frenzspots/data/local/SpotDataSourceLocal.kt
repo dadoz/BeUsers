@@ -17,9 +17,9 @@ class SpotDataSourceLocal(var context: Context?) {
     fun getSpotList(): Flow<MutableList<Spot>> {
         return flow {
             val list = mutableListOf(
-                Spot("Davide", "Corso Racconing 134", "", "Torino"),
-                Spot("Francesco", "Corso Ferraris 127", "", "Neive"),
-                Spot("Pasquale", "Strada Provinciale 127", "", "Asti")
+                Spot("Davide", "Corso Racconing 134", "", "Torino", 0.0, 0.0),
+                Spot("Francesco", "Corso Ferraris 127", "", "Neive", 0.0, 0.0),
+                Spot("Pasquale", "Strada Provinciale 127", "", "Asti", 0.0, 0.0)
             )
 
             emit(list)

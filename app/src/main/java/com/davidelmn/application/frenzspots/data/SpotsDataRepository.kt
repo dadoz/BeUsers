@@ -26,7 +26,7 @@ class SpotsDataRepository(val context: Context?) {
     }
 
     fun findSpotById(id: String): Spot {
-        return Spot("bla", "bla", "blal", "blal")
+        return Spot("bla", "bla", "blal", "blal", 0.0, 0.0)
 //        return bookmarkDataSourceLocal.findSpotById(id)
     }
 
